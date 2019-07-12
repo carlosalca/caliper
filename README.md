@@ -32,6 +32,28 @@ Como se puede apreciar, al benchmark le entran dos archivos de configuración en
 
 Mediante este archivo de configuración se pueden configurar las pruebas a realizar sobre la red de blockchain, como por ejemplo el número de transacciones o el ritmo al que se inyectan estas en la red. Se trata de un archivo ".yaml" en el que se van a distinguir dos zonas principales, una primera zona "test" en la que se indica la información sobre las pruebas a realizar, y una segunda zona "monitor" en la que se define qué se va a monitorizar durante las pruebas. Un ejemplo de este archivo se puede encontrar [aquí](/benchmark/config.yaml).
 
+Los aspectos más importantes de este archivo son quizá los que definen las "rounds" que se van a hacer. Cada ronda se identifica con un "label", que normalmente suele ponerse el nomnbre de la función del chaincode que se va a evaluar. 
+
+```
+rounds:
+  - label: open
+    txMode:
+      type: real-time
+    txNumber:
+    - 5000
+    - 5000
+    rateControl:
+    - type: fixed-rate
+      opts: 
+        tps: 100
+    - type: fixed-rate
+      opts:
+        tps: 200
+    arguments:
+      money: 10000
+    callback: benchmark/simple/open.js
+```
+
 
 
 
