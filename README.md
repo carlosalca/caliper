@@ -34,7 +34,7 @@ Mediante este archivo de configuración se pueden configurar las pruebas a reali
 
 Los aspectos más importantes de este archivo son quizá los que definen las "rounds" que se van a hacer. Cada ronda se identifica con un "label", que normalmente suele ponerse el nomnbre de la función del chaincode que se va a evaluar. 
 
-El parametro "txMode" indica el modo de generación de las transacciones, en el ejemplo se generan y se envñian en tiempo real, aunque hay otro modo en el que se pueden leer de un fichero (file-read) o se pueden generar como se hace en tiempo real pero en vez de enviarlas las almacena en un fichero (file-write). Con el parámetro "txNumber" se definen el número de transacciones para cada subronda dentro de la ronda, se trata de un array. Otra forma de definir el número de transacciones es definir una duración en segundos, también en forma de array, durante el cual se envían transacciones a un ritmo definido a continuación con el parámetro "rateControl". Este último parámetro debe contener tantos elementos como elementos tengan los arrays anteriores que definen el número o tiempo de transacciones.
+El parametro "txMode" indica el modo de generación de las transacciones, en el ejemplo se generan y se envñian en tiempo real, aunque hay otro modo en el que se pueden leer de un fichero (file-read) o se pueden generar como se hace en tiempo real pero en vez de enviarlas las almacena en un fichero (file-write). Con el parámetro "txNumber" se definen el número de transacciones para cada subronda dentro de la ronda, se trata de un array. Otra forma de definir el número de transacciones es definir una duración en segundos, también en forma de array, durante el cual se envían transacciones a un ritmo definido a continuación con el parámetro "rateControl". Este último parámetro debe contener tantos elementos como elementos tengan los arrays anteriores que definen el número o tiempo de transacciones. Se puede encotrar más información sobre los distintos tipos de rateControl en [3].
 
 Por útlimo, en este extracto del fichero se define la llamada del chaincode que se va a utilizar. Llama siempre a un fichero javascript en el que se define a qué función del chaincode se llama y con qué parámetros. También se le pueden pasar argumentos a través de este archivo de configuración.
 
@@ -78,6 +78,7 @@ monitor:
   interval: 1
 
 ```
+La explicación completa de los parámetros de este archivo se puede encontrar en [1].
 
 
 
@@ -86,7 +87,8 @@ monitor:
 
 
 
+[1]"Architecture -", Hyperledger Caliper, 2019. [Online]. Available: https://hyperledger.github.io/caliper/docs/2_Architecture.html. [Accessed: 12- Jul- 2019].
 
-[1] Hyperledger Caliper. (2019). Architecture -. [online] Available at: https://hyperledger.github.io/caliper/docs/2_Architecture.html [Accessed 12 Jul. 2019].
+[2]"Writing Adapters", Hyperledger Caliper, 2019. [Online]. Available: https://hyperledger.github.io/caliper/docs/Writing_Adapters.html. [Accessed: 12- Jul- 2019].
 
-[2] Hyperledger Caliper. (2019). Writing Adapters. [online] Available at: https://hyperledger.github.io/caliper/docs/Writing_Adapters.html [Accessed 12 Jul. 2019].
+[3]"Rate Controllers", Hyperledger Caliper, 2019. [Online]. Available: https://hyperledger.github.io/caliper/docs/Rate_Controllers.html. [Accessed: 12- Jul- 2019].
