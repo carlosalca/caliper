@@ -1,0 +1,194 @@
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+name: Fabric
+version: "1.0"
+mutual-tls: true
+
+caliper:
+  blockchain: fabric-ccp
+  command:
+    start: docker-compose -f network/fabric-v1.4.1/hyperledgerfabrictestnet/docker-compose.yaml up -d;sleep 3s
+    end: docker-compose -f network/fabric-v1.4.1/hyperledgerfabrictestnet/docker-compose.yaml down;rm -rf /tmp/hfc-*
+
+info:
+  Version: 1.4.1
+  Size: 2 Orgs with 3 Peers org1 and 2 peers org2
+  Orderer: Raft
+  Distribution: Single Host
+  StateDB: CouchDB
+
+clients:
+  client0.org1.telefonica.com:
+    client:
+      organization: Org1
+      credentialStore:
+        path: /tmp/hfc-kvs/org1
+        cryptoStore:
+          path: /tmp/hfc-cvs/org1
+      clientPrivateKey:
+        path: network/fabric-v1.4.1/hyperledgerfabrictestnet/crypto-config/peerOrganizations/org1.telefonica.com/users/User1@org1.telefonica.com/msp/keystore/deb76209e289b47418effdff8269c07f55394bb38e75cfa38dfec15f196cac7b_sk
+      clientSignedCert:
+        path: network/fabric-v1.4.1/hyperledgerfabrictestnet/crypto-config/peerOrganizations/org1.telefonica.com/users/User1@org1.telefonica.com/msp/signcerts/User1@org1.telefonica.com-cert.pem
+
+  client0.org2.example.com:
+    client:
+      organization: Org2
+      credentialStore:
+        path: /tmp/hfc-kvs/org2
+        cryptoStore:
+          path: /tmp/hfc-cvs/org2
+      clientPrivateKey:
+        path: network/fabric-v1.4.1/hyperledgerfabrictestnet/crypto-config/peerOrganizations/org2.telefonica.com/users/User1@org2.telefonica.com/msp/keystore/9c4a6411261112f50b7012f4e06ec63b2735bb99f7dcf6bf6add798853da86ae_sk
+      clientSignedCert:
+        path: network/fabric-v1.4.1/hyperledgerfabrictestnet/crypto-config/peerOrganizations/org2.telefonica.com/users/User1@org2.telefonica.com/msp/signcerts/User1@org2.telefonica.com-cert.pem
+
+
+channels:
+  telefonicachannel:
+    configBinary: network/fabric-v1.4.1/hyperledgerfabrictestnet/channel-artifacts/telefonicachannel.tx
+    created: false
+    orderers:
+    - orderer0.telefonica.com
+    - orderer1.telefonica.com
+    - orderer2.telefonica.com
+    peers:
+      peer0.org1.telefonica.com:
+        eventSource: true
+      peer1.org1.telefonica.com:
+        eventSource: true
+      peer2.org1.telefonica.com:
+        eventSource: true
+      peer0.org2.telefonica.com:
+        eventSource: true
+      peer1.org2.telefonica.com:
+        eventSource: true
+
+    chaincodes:
+    - id: marbles
+      version: v0
+      language: golang
+      path: contract/fabric/marbles/go
+      metadataPath: src/contract/fabric/marbles/go/metadata
+    - id: drm
+      version: v0
+      language: golang
+      path: contract/fabric/drm
+    - id: simple
+      version: v0
+      language: golang
+      path: contract/fabric/simple/go
+    - id: smallbank
+      version: v0
+      language: golang
+      path: contract/fabric/smallbank
+
+organizations:
+  Org1:
+    mspid: org1MSP
+    peers:
+    - peer0.org1.telefonica.com
+    - peer1.org1.telefonica.com
+    - peer2.org1.telefonica.com
+    certificateAuthorities:
+    - ca.org1.telefonica.com
+    adminPrivateKey:
+      path: network/fabric-v1.4.1/hyperledgerfabrictestnet/crypto-config/peerOrganizations/org1.telefonica.com/users/Admin@org1.telefonica.com/msp/keystore/049c037f23b111ca3dd64290398942bf8f96b7edfe5cf22f50628e2ee2acd49e_sk
+    signedCert:
+      path: network/fabric-v1.4.1/hyperledgerfabrictestnet/crypto-config/peerOrganizations/org1.telefonica.com/users/Admin@org1.telefonica.com/msp/signcerts/Admin@org1.telefonica.com-cert.pem
+
+  Org2:
+    mspid: org2MSP
+    peers:
+    - peer0.org2.telefonica.com
+    - peer1.org2.telefonica.com
+    certificateAuthorities:
+    - ca.org2.telefonica.com
+    adminPrivateKey:
+      path: network/fabric-v1.4.1/hyperledgerfabrictestnet/crypto-config/peerOrganizations/org2.telefonica.com/users/Admin@org2.telefonica.com/msp/keystore/a80dd726863e9a0d46a218ad4e92440632dc7b4aab374928c34c54f82cc37274_sk
+    signedCert:
+      path: network/fabric-v1.4.1/hyperledgerfabrictestnet/crypto-config/peerOrganizations/org2.telefonica.com/users/Admin@org2.telefonica.com/msp/signcerts/Admin@org2.telefonica.com-cert.pem
+
+orderers:
+  orderer0.telefonica.com:
+    url: grpcs://localhost:7050
+    grpcOptions:
+      ssl-target-name-override: orderer0.telefonica.com
+    tlsCACerts:
+      path: network/fabric-v1.4.1/hyperledgerfabrictestnet/crypto-config/ordererOrganizations/telefonica.com/orderers/orderer0.telefonica.com/msp/tlscacerts/tlsca.telefonica.com-cert.pem
+  orderer1.telefonica.com:
+    url: grpcs://localhost:8050
+    grpcOptions:
+      ssl-target-name-override: orderer1.telefonica.com
+    tlsCACerts:
+      path: network/fabric-v1.4.1/hyperledgerfabrictestnet/crypto-config/ordererOrganizations/telefonica.com/orderers/orderer1.telefonica.com/msp/tlscacerts/tlsca.telefonica.com-cert.pem
+  orderer2.telefonica.com:
+    url: grpcs://localhost:9050
+    grpcOptions:
+      ssl-target-name-override: orderer2.telefonica.com
+    tlsCACerts:
+      path: network/fabric-v1.4.1/hyperledgerfabrictestnet/crypto-config/ordererOrganizations/telefonica.com/orderers/orderer2.telefonica.com/msp/tlscacerts/tlsca.telefonica.com-cert.pem
+peers:
+  peer0.org1.telefonica.com:
+    url: grpcs://localhost:7051
+    grpcOptions:
+      ssl-target-name-override: peer0.org1.telefonica.com
+      grpc.keepalive_time_ms: 600000
+    tlsCACerts:
+      path: network/fabric-v1.4.1/hyperledgerfabrictestnet/crypto-config/peerOrganizations/org1.telefonica.com/peers/peer0.org1.telefonica.com/msp/tlscacerts/tlsca.org1.telefonica.com-cert.pem
+  peer1.org1.telefonica.com:
+    url: grpcs://localhost:9051
+    grpcOptions:
+      ssl-target-name-override: peer1.org1.telefonica.com
+      grpc.keepalive_time_ms: 600000
+    tlsCACerts:
+      path: network/fabric-v1.4.1/hyperledgerfabrictestnet/crypto-config/peerOrganizations/org1.telefonica.com/peers/peer1.org1.telefonica.com/msp/tlscacerts/tlsca.org1.telefonica.com-cert.pem
+  peer2.org1.telefonica.com:
+    url: grpcs://localhost:15051
+    grpcOptions:
+      ssl-target-name-override: peer2.org1.telefonica.com
+      grpc.keepalive_time_ms: 600000
+    tlsCACerts:
+      path: network/fabric-v1.4.1/hyperledgerfabrictestnet/crypto-config/peerOrganizations/org1.telefonica.com/peers/peer2.org1.telefonica.com/msp/tlscacerts/tlsca.org1.telefonica.com-cert.pem
+  peer0.org2.telefonica.com:
+    url: grpcs://localhost:8051
+    grpcOptions:
+      ssl-target-name-override: peer0.org2.telefonica.com
+      grpc.keepalive_time_ms: 600000
+    tlsCACerts:
+      path: network/fabric-v1.4.1/hyperledgerfabrictestnet/crypto-config/peerOrganizations/org2.telefonica.com/peers/peer0.org2.telefonica.com/msp/tlscacerts/tlsca.org2.telefonica.com-cert.pem
+  peer1.org2.telefonica.com:
+    url: grpcs://localhost:6051
+    grpcOptions:
+      ssl-target-name-override: peer1.org2.telefonica.com
+      grpc.keepalive_time_ms: 600000
+    tlsCACerts:
+      path: network/fabric-v1.4.1/hyperledgerfabrictestnet/crypto-config/peerOrganizations/org2.telefonica.com/peers/peer0.org2.telefonica.com/msp/tlscacerts/tlsca.org2.telefonica.com-cert.pem
+certificateAuthorities:
+  ca.org1.telefonica.com:
+    url: https://localhost:7054
+    httpOptions:
+      verify: false
+    tlsCACerts:
+      path: network/fabric-v1.4.1/hyperledgerfabrictestnet/crypto-config/peerOrganizations/org1.telefonica.com/tlsca/tlsca.org1.telefonica.com-cert.pem
+    registrar:
+    - enrollId: adminCA
+      enrollSecret: adminpw
+  ca.org2.telefonica.com:
+    url: https://localhost:8054
+    httpOptions:
+      verify: false
+    tlsCACerts:
+      path: network/fabric-v1.4.1/hyperledgerfabrictestnet/crypto-config/peerOrganizations/org2.telefonica.com/tlsca/tlsca.org2.telefonica.com-cert.pem
+    registrar:
+    - enrollId: adminCA
+      enrollSecret: adminpw

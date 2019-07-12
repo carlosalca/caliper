@@ -82,7 +82,7 @@ La explicación completa de los parámetros de este archivo se puede encontrar e
 
 ## Blockchain configuration file
 
-En este archivo de configuración se define la red de blockchain sobre la que se van a realizar las pruebas. Es muy similar al connection profile usado en las aplicaciones de Fabric. En Caliper se pueden usar el que es similar al de Fabric escrito en JSON u otro llamado CCP (Common Connnection Profile) en formato YAML. En este documento el que se va a utilizar es este último, ya que se supone que provee de compatibilidad a través de las diferentes versiones de Fabric.
+En este archivo de configuración se define la red de blockchain sobre la que se van a realizar las pruebas. Es muy similar al connection profile usado en las aplicaciones de Fabric. En Caliper se pueden usar el que es similar al de Fabric escrito en JSON u otro llamado CCP (Common Connnection Profile) en formato YAML. En este documento el que se va a utilizar es este último, ya que se supone que provee de compatibilidad a través de las diferentes versiones de Fabric. Un ejemplo de este archivo para una red de 2 organizaciones de 3 peers la primera y 2 la segunda, con 3 orderers, Raft y mutual tls se puede encontrar [aquí](/network/fabric-ccp-go-mutual-tls.yaml).
 
 En el archivo CCP se van a describir los elementos de la red de blockchain subyacente así como algunos parámetros propios de Hyperledger Caliper. Una descripción completa de este fichero se puede encontrar en [4], y en este documento solo se pondrá lo que se considere algo más confuso o algún tip.
 
@@ -111,7 +111,22 @@ export BENCHMARK=fabric-ccp
 ./packages/caliper-tests-integration/scripts/run-integration-tests.sh
 ```
 
+
+
 >Si se quisiera usar Caliper para otra versión distinta, habría que usar otro adaptador. Para hacer esto solo hay que modificar el "package.json" de la raíz del repositorio y volver a contruir Caliper.
+
+## Realizar una prueba de rendimiento
+
+Para realizar una prueba de rendimiento solo hace falta ejecutar un simple comando:
+
+```bash
+caliper benchmark run -w <path to workspace> -c <benchmark config> -n <blockchain config>
+```
+* -w: indica el directorio de trabajo.
+* -c: path relativo al directorio de trabajo anterior definido donde se encuentra el archivo de configuración del benchamrk.
+* -n: path reativo al directorio de trabajo anterior donde se encuentra el archivo de configuración de la red de blockchain.
+
+Conforme ete comando se ejecuta se pueden ir observando algunos resultados, aunque cuando termine Caliper generará un archivo HTML con un informe detallado de los resultados de cada ronda y subronda, así como un resumen del total de la prueba.
 
 
 ## Referencias
