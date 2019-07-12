@@ -10,9 +10,9 @@ Hyperledger Caliper es una herramienta del proyecto Hyperledger dentro de la Lin
 
 Aunque quizá el más relevante sea dar soporte a Hyperledger Fabric, y también que tenga planeado dar soporte a otras blockchain como Ethereum. 
 
-Indicadores de rendimiento |
-----------------------------
-Ratio de éxito
-Throughput de transacciones
-Latencia
-Consumo de recursos
+Indicadores de rendimiento | Descripción
+----------------------------------------
+Ratio de éxito             | Número de transacciones llevadas a cabo con éxito y número de fallos
+Throughput de transacciones| Número de transacciones por segundo
+Latencia                   | Latencia mínima, máxima y media
+Consumo de recursos        | Consumo de memoria, de CPU, I/O de red
