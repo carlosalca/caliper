@@ -88,6 +88,30 @@ En el archivo CCP se van a describir los elementos de la red de blockchain subya
 
 * Tip: cuando se pone el path de un chaincode escrito en Go, el path relativo parte de WORKIN_DIRECTORY/src, donde WORKIN_DIRECTORY es el directorio de trabajo que se especifica en el comando de ejecución de las pruebas (más adelante se explica). Sin embargo, si se quiere poner el path para un chaincode escrito en Node.js, el path relativo parte directamente del directorio de trabajo especificado. Por lo tanto, los chaincode escritos en Go siempre deben ir dentro de una carpeta src dentro del directorio de trabajo que se especifique, mientras que los escritos en cualquier otro lenguage pueden ir donde se quiera.
 
+## Instalación 
+
+Para instalar Caliper hacen falta que se tengan instalados unos prerequisitos muy similares a Hyperledger Fabric:
+
+* NodeJS 8 (LTS), 9, o 10 (LTS).
+* node-gyp
+* Docker
+* Docker-compose
+
+Para contruir caliper hace falta primero clonar el repositorio de [https://github.com/hyperledger/caliper.git](https://github.com/hyperledger/caliper.git), y una vez dentro del directorio raíz del repositorio ejecturar (sin sudo):
+
+```bash
+npm install
+npm run repoclean
+npm run bootstrap
+```
+Una vez hecho esto se puede instalar Caliper CLI para que se más sencilla le ejecución de las pruebas. Ir al directorio raíz del repositorio descargado y ejecutar:
+
+```bash
+export BENCHMARK=fabric-ccp
+./packages/caliper-tests-integration/scripts/run-integration-tests.sh
+```
+
+>Si se quisiera usar Caliper para otra versión distinta, habría que usar otro adaptador. Para hacer esto solo hay que modificar el "package.json" de la raíz del repositorio y volver a contruir Caliper.
 
 
 ## Referencias
