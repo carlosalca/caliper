@@ -128,7 +128,9 @@ caliper benchmark run -w <path to workspace> -c <benchmark config> -n <blockchai
 
 Conforme ete comando se ejecuta se pueden ir observando algunos resultados, aunque cuando termine Caliper generará un archivo HTML con un informe detallado de los resultados de cada ronda y subronda, así como un resumen del total de la prueba.
 
+## Pruebas de rendimiento realizadas
 
+* [Golang VS Node.js](test/goVSnode/govsnode.md)
 ## Referencias
 
 [1]"Architecture -", Hyperledger Caliper, 2019. [Online]. Available: https://hyperledger.github.io/caliper/docs/2_Architecture.html. [Accessed: 12- Jul- 2019].
