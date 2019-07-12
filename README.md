@@ -21,7 +21,10 @@ La arquitectura de Hyperledger Caliper se puede consultar en [1], pero básicame
 
 * Capa de adaptacación: integra la blockchain existente, como puede ser Hyperledger Fabric, con Caliper. El adaptador para cada red implementa una interfaz que Caliper denomina "Caliper Blockchain NBI (North Bound Interface)" usando el SDK nativo de cada red blockchain. En [2] se puede encontrar documentación sobre cómo crear un adaptador.
 * Capa de interfaz y núcleo: en esta capa se encuentran tanto la interfaz NBI como los medidores de los indicadores de recursos. 
-* Capa de aplicación: contiene el test a realizar sobre la red. Caliper denomina a este test "benchmark" y usa en "benchmark engine" para llevarlo a cabo. 
+* Capa de aplicación: contiene el test a realizar sobre la red. Caliper denomina a este test "benchmark" y usa en "benchmark engine" para llevarlo a cabo. El benchmark engine se puede observar en la siguiente image:
+
+![Benchmark engine](/images/test-framework.png)
+Format: ![Alt text](url)
 
 
 
@@ -36,4 +39,5 @@ La arquitectura de Hyperledger Caliper se puede consultar en [1], pero básicame
 
 
 [1] Hyperledger Caliper. (2019). Architecture -. [online] Available at: https://hyperledger.github.io/caliper/docs/2_Architecture.html [Accessed 12 Jul. 2019].
+
 [2] Hyperledger Caliper. (2019). Writing Adapters. [online] Available at: https://hyperledger.github.io/caliper/docs/Writing_Adapters.html [Accessed 12 Jul. 2019].
