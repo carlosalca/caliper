@@ -24,7 +24,7 @@ La arquitectura de Hyperledger Caliper se puede consultar en [1], pero básicame
 * Capa de aplicación: contiene el test a realizar sobre la red. Caliper denomina a este test "benchmark" y usa en "benchmark engine" para llevarlo a cabo. El benchmark engine se puede observar en la siguiente imagen:
 
 ![Benchmark engine](/images/test-framework.png)
-*Figure 1: ![Benchmark engine](url)*
+*Figure 1: ![Benchmark engine](url)* Source [1]
 
 Como se puede apreciar, al benchmark le entran dos archivos de configuración en los cuales se definen la red blockchain en uno y las pruebas a realizar en el otro.
 
