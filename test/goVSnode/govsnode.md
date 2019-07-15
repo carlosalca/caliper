@@ -4,7 +4,7 @@ En este conjunto de pruebas se comparan los chaincode escritos en Go y Node.js, 
 
 ## Primera prueba
 
-En la primera prueba se ha realizado el test descrito en este [benchmark](/test/goVSnode/1/benchamark/configVS.yaml). Principalmente lo que hace es realizar dos rondas para cada lenguaje con el mismo 
+En la primera prueba se ha realizado el test descrito en este [benchmark](/test/goVSnode/1/benchmark/configVS.yaml). Principalmente lo que hace es realizar dos rondas para cada lenguaje con el mismo 
 chaincode escrito en Go y en Node.js. Las transacciones inyectadas son las mismas para los dos y son las que se reflejan en la siguiente tabla:
 
 |       	| Go                         	| Node.js                    	|
